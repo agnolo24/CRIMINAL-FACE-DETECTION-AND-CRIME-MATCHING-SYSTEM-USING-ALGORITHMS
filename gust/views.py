@@ -16,7 +16,6 @@ def login_check(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            print(email, password)
             try:
                 user = get_object_or_404(login_table, email=email)
                 if user.password == password:

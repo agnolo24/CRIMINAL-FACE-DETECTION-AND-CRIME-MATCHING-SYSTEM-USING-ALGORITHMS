@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from . models import *
 from . forms import *
 from gust . models import login as login_table
@@ -27,3 +27,22 @@ def police_station_reg_form(request):
 
 def station_home(request):
     return render(request, 'police_station/station_home.html')
+
+def station_profile(request):
+    station_id = request.session.get('station_id')
+    log_station = get_object_or_404(login_table, id = station_id)
+    data = police_station_registration.objects.get(login_id = log_station)
+    return render(request, 'police_station/station_profile.html', {'data' : data})
+
+def edit_station_profile(request):
+    station_id = request.session.get('station_id')
+    log_station = get_object_or_404(login_table, id = station_id)
+    data = police_station_registration.objects.get(login_id = log_station)
+    if request.method == 'POST':
+        form = edit_station_profile_form(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect('station_profile')
+    else:
+        form = edit_station_profile_form(instance=data)
+    return render(request, 'police_station/edit_station_profile.html', {'form' : form})
