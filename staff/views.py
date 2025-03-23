@@ -16,6 +16,7 @@ def staff_reg_form(request):
         if form.is_valid() and log.is_valid():
             log_inst=log.save(commit=False)
             log_inst.user_type='staff'
+            log_inst.varification_status = 'varified'
             log_inst.save()
             inst=form.save(commit=False)
             inst.login_id=log_inst

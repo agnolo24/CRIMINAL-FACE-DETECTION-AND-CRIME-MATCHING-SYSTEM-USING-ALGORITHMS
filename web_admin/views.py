@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from police_station . models import police_station_registration
 from staff . models import staff
 from gust . models import login
+from . models import *
 
 # Create your views here.
 
@@ -15,3 +16,16 @@ def police_station_details_table(request):
 def staff_details_table(request):
     staff_data = staff.objects.all()
     return render(request, 'web_admin/data_staff.html',{'Datas':staff_data})
+
+def accept_s(request, station_id):
+    station = get_object_or_404(login, id = station_id)
+    station.varification_status = 'varified'
+    station.save()
+    return redirect('p_data_table')
+
+def reject_s(request, station_id):
+    station = get_object_or_404(login, id = station_id)
+    station.varification_status = 'reject'
+    station.save()
+    return redirect('p_data_table')
+

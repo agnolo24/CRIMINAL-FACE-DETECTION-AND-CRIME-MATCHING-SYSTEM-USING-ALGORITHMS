@@ -538,10 +538,12 @@
                 <tr>
                   <th>Station-ID</th>
                   <th>Address Line-1</th>
-                  <th>Address Line-1</th>
+                  <th>Address Line-2</th>
                   <th>District</th>
                   <th>City</th>
                   <th>Contact</th>
+                  <th>Email</th>
+                  <th>Functions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -553,6 +555,15 @@
                       <td>{{data.district}}</td>
                       <td>{{data.city}}</td>
                       <td>{{data.contact}}</td>
+                      <td>{{data.login_id.email}}</td>
+                      <td>
+                        {% if data.login_id.varification_status != 'varified' %}
+                          <button><a href="{% url 'accept_s' data.login_id.id %}">Accept</a></button> 
+                        {% endif %}
+                        {% if data.login_id.varification_status == 'varified' %}
+                          <button><a href="{% url 'reject_s' data.login_id.id %}">Reject</a></button>
+                        {% endif %}
+                      </td>
                   </tr>
                   {% endfor %}
                 </tbody>

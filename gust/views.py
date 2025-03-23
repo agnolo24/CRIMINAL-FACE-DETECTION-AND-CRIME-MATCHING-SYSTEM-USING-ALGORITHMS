@@ -20,8 +20,11 @@ def login_check(request):
                 user = get_object_or_404(login_table, email=email)
                 if user.password == password:
                     if user.user_type == 'station':
-                        request.session['station_id'] = user.id
-                        return redirect('station_home')
+                        if user.varification_status == 'varified':
+                            request.session['station_id'] = user.id
+                            return redirect('station_home')
+                        else:
+                            messages.error(request, 'Not Varified')
                     elif user.user_type == 'staff':
                         request.session['staff_id'] = user.id
                         return redirect('staff_home')
