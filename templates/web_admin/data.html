@@ -542,12 +542,10 @@
                   <th>District</th>
                   <th>City</th>
                   <th>Contact</th>
-                  <th>Email</th>
-
                 </tr>
                 </thead>
                 <tbody>
-                  {% for data in Datas %}
+                  {% for data in data1 %}
                   <tr>
                       <td>{{data.station_id}}</td>
                       <td>{{data.address_line_1}}</td>
@@ -555,7 +553,6 @@
                       <td>{{data.district}}</td>
                       <td>{{data.city}}</td>
                       <td>{{data.contact}}</td>
-                      <td>{{data.email}}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
